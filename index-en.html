@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<!--
+  رفع يدوي على GitHub:
+  - انسخ هذا الملف إلى جذر مستودع my_cv (بجانب index.html العربي).
+  - الرابط بعد النشر: https://mohaziz2002.github.io/my_cv/index-en.html
+  - أضف رابط "English" في صفحتك العربية (انظر snippet-link-in-arabic-page.html).
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CV | Mohammed Zaki</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      top: 1rem;
+      left: -0.8rem;
+      width: 1.5rem;
+      height: 1.5rem;
+      border-radius: 50%;
+      background-color: #dc2626;
+      border: 3px solid #fee2e2;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+  <nav class="fixed top-0 w-full bg-white/95 backdrop-blur border-b border-gray-200 z-50 shadow-sm">
+    <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
+      <span class="font-semibold text-red-600">Mohammed Zaki</span>
+      <div class="flex items-center gap-2 md:gap-4">
+        <a href="index.html" class="text-sm font-medium text-gray-600 hover:text-red-600 shrink-0" dir="rtl">العربية</a>
+        <button id="menu-btn" type="button" class="md:hidden p-2 rounded-lg border border-gray-200" aria-label="Open menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+        <div class="hidden md:flex gap-8 text-sm font-medium">
+          <a href="#about" class="nav-link text-gray-600 hover:text-red-600">About</a>
+          <a href="#experience" class="nav-link text-gray-600 hover:text-red-600">Experience</a>
+          <a href="#skills" class="nav-link text-gray-600 hover:text-red-600">Skills &amp; Training</a>
+        </div>
+      </div>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden border-t border-gray-100 bg-white px-4 py-3 flex flex-col gap-3">
+      <a href="#about" class="nav-link text-gray-700">About</a>
+      <a href="#experience" class="nav-link text-gray-700">Experience</a>
+      <a href="#skills" class="nav-link text-gray-700">Skills &amp; Training</a>
+      <a href="index.html" class="text-gray-700 font-medium" dir="rtl">العربية</a>
+    </div>
+  </nav>
+
+  <header id="about" class="pt-24 pb-16 px-4 bg-gradient-to-b from-red-50 to-gray-50">
+    <div class="max-w-5xl mx-auto text-center">
+      <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-3">Mohammed Zaki</h1>
+      <p class="text-lg text-gray-700 mb-2">Third-year Computer Engineering student</p>
+      <p class="text-gray-600 max-w-2xl mx-auto">Candidate for the Supervision and Evaluation Committee, Union of Yemeni Students in Turkey – Karabük branch</p>
+    </div>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-4 pb-20">
+    <section class="mb-16">
+      <h2 class="text-2xl font-bold text-gray-900 mb-4 border-b border-red-200 pb-2">Personal summary</h2>
+      <p class="text-gray-700 leading-relaxed max-w-3xl">
+        I am an ambitious student committed to achieving my goals. I am passionate about volunteering and gaining diverse skills that support my personal growth and community impact. I believe in active participation in building a connected, effective student community.
+      </p>
+    </section>
+
+    <section id="experience" class="mb-16">
+      <h2 class="text-2xl font-bold text-gray-900 mb-8 border-b border-red-200 pb-2">Volunteer experience</h2>
+      <div class="relative border-l-2 border-red-200 ml-4 md:ml-6 pl-8 md:pl-10 experience-data"></div>
+    </section>
+
+    <section id="skills">
+      <h2 class="text-2xl font-bold text-gray-900 mb-4 border-b border-red-200 pb-2">Skills &amp; qualifications</h2>
+      <p class="text-gray-700 mb-8 max-w-3xl">
+        Below is an overview of my qualifications and training. The chart shows how these skills are distributed across different areas. You can explore each course in the cards below.
+      </p>
+      <div class="grid md:grid-cols-2 gap-8 items-start mb-12">
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 h-72 md:h-80">
+          <canvas id="skillsChart"></canvas>
+        </div>
+        <div class="skills-data grid sm:grid-cols-2 gap-4"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-gray-200 bg-white py-6 text-center text-sm text-gray-500">
+    © 2026 Mohammed Zaki
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const experienceData = [
+        { year: '2025', title: 'Team lead, Artificial Intelligence program', org: 'Union of Yemeni Students, Sakarya branch' },
+        { year: '2023–2024', title: 'Secretary General', org: 'Union of Yemeni Students in Turkey, Karabük branch' },
+        { year: '2023–2024', title: 'Head, Ruwad Academy for Training and Qualification', org: 'Union of Yemeni Students in Turkey, Karabük branch' },
+        { year: '2023–2024', title: 'Turkish language instructor, Itqan program', org: 'Union of Yemeni Students in Turkey, Karabük branch' },
+        { year: '2022–present', title: 'Volunteer across multiple committees (residency, university, health, reception, housing)', org: 'Union of Yemeni Students in Turkey, Karabük & Sakarya branches' },
+        { year: '2022–2023', title: 'Member, Follow-up and Audit Committee for Turkish scholarships', org: 'Union of Yemeni Students in Turkey, Sakarya branch' },
+        { year: '2022–2023', title: 'Instructor of Turkish and English', org: 'Union of Yemeni Students in Turkey, Sakarya branch' },
+        { year: '2023', title: 'Volunteer, displaced persons shelter program', org: 'Sakarya' },
+      ];
+
+      const skillsData = [
+        { category: 'Languages', title: 'Diploma in English', source: 'Mali Institute' },
+        { category: 'Languages', title: 'Diploma in Turkish', source: 'Sakarya University of Applied Sciences' },
+        { category: 'Technical', title: 'International Computer Driving License (ICDL)', source: 'University of Science and Technology' },
+        { category: 'Humanitarian', title: 'First aid course', source: 'Leadership Institute' },
+        { category: 'Humanitarian', title: 'Disaster management (ASPER program)', source: 'Leadership Institute' },
+        { category: 'Administrative', title: 'Digital marketing course', source: 'Union of Yemeni Students, Istanbul' },
+        { category: 'Administrative', title: 'Small project management course', source: 'Leadership Institute' },
+        { category: 'Humanitarian', title: 'First aid practical training', source: 'Our New World Institute' },
+      ];
+
+      const experienceContainer = document.querySelector('.experience-data');
+      experienceData.forEach((item) => {
+        const div = document.createElement('div');
+        div.className = 'timeline-item mb-8 ml-0 pl-0 relative';
+        div.innerHTML =
+          '<p class="text-sm font-semibold text-red-600">' +
+          item.year +
+          '</p><h3 class="text-lg font-semibold text-gray-900 mt-1">' +
+          item.title +
+          '</h3><p class="text-gray-600 mt-1">' +
+          item.org +
+          '</p>';
+        experienceContainer.appendChild(div);
+      });
+
+      const skillsContainer = document.querySelector('.skills-data');
+      skillsData.forEach((item) => {
+        const div = document.createElement('div');
+        div.className =
+          'bg-white p-6 rounded-lg shadow-sm border border-gray-200 transition-transform transform hover:-translate-y-1 hover:shadow-lg';
+        div.innerHTML =
+          '<p class="font-medium text-gray-900">' + item.title + '</p><p class="text-sm text-gray-600 mt-2">' + item.source + '</p>';
+        skillsContainer.appendChild(div);
+      });
+
+      const skillCategories = {};
+      skillsData.forEach((skill) => {
+        skillCategories[skill.category] = (skillCategories[skill.category] || 0) + 1;
+      });
+
+      const ctx = document.getElementById('skillsChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: Object.keys(skillCategories),
+          datasets: [
+            {
+              label: 'Skill categories',
+              data: Object.values(skillCategories),
+              backgroundColor: ['#4A90E2', '#F5A623', '#50E3C2', '#7ED321'],
+              borderColor: '#f9fafb',
+              borderWidth: 3,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: {
+                font: { family: 'Inter, system-ui, sans-serif', size: 14 },
+                color: '#374151',
+              },
+            },
+            tooltip: {
+              bodyFont: { family: 'Inter, system-ui, sans-serif' },
+              titleFont: { family: 'Inter, system-ui, sans-serif' },
+            },
+          },
+        },
+      });
+
+      document.getElementById('menu-btn').addEventListener('click', () => {
+        document.getElementById('mobile-menu').classList.toggle('hidden');
+      });
+
+      document.querySelectorAll('a.nav-link').forEach((anchor) => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href');
+          const targetElement = document.querySelector(targetId);
+          const mobileMenu = document.getElementById('mobile-menu');
+          if (targetElement) {
+            window.scrollTo({ top: targetElement.offsetTop - 70, behavior: 'smooth' });
+            if (!mobileMenu.classList.contains('hidden')) mobileMenu.classList.add('hidden');
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
